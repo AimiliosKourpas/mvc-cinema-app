@@ -49,7 +49,7 @@ public partial class Movie
 
     [ForeignKey("ContentAdminId")]
     [InverseProperty("Movies")]
-    public virtual ContentAdmin ContentAdmin { get; set; } = null!;
+    public virtual ContentAdmin? ContentAdmin { get; set; } = null!;
 
     [InverseProperty("Movie")]
     public virtual ICollection<Provole> Provoles { get; set; } = new List<Provole>();

@@ -102,7 +102,7 @@ public partial class ApplicationDBContext : DbContext
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.UserUsernameNavigation).WithMany(p => p.ContentAdmins)
+            entity.HasOne(d => d.UsernameNavigation).WithMany(p => p.ContentAdmins)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__CONTENT_A__user___1A34DF26");
         });

@@ -23,7 +23,7 @@ public partial class User
     [InverseProperty("UserUsernameNavigation")]
     public virtual ICollection<Admin> Admins { get; set; } = new List<Admin>();
 
-    [InverseProperty("UserUsernameNavigation")]
+    [InverseProperty("UsernameNavigation")]
     public virtual ICollection<ContentAdmin> ContentAdmins { get; set; } = new List<ContentAdmin>();
 
     [InverseProperty("UserUsernameNavigation")]

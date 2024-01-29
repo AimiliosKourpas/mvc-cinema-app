@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +22,8 @@ namespace MyCinemaApp.Controllers
         // GET: Movies
         public async Task<IActionResult> Index()
         {
-            var applicationDBContext = _context.Movies.Include(m => m.ContentAdmin);
-            return View(await applicationDBContext.ToListAsync());
+            var myFirstMVCDBContext = _context.Movies.Include(m => m.ContentAdmin);
+            return View(await myFirstMVCDBContext.ToListAsync());
         }
 
         // GET: Movies/Details/5
@@ -60,30 +61,63 @@ namespace MyCinemaApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(movie);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Retrieve the corresponding ContentAdmin object based on the selected ContentAdminId
+                ContentAdmin selectedContentAdmin = _context.ContentAdmins.FirstOrDefault(ca => ca.Id == movie.ContentAdminId);
+
+                // Ensure a valid ContentAdmin object is found
+                if (selectedContentAdmin != null)
+                {
+                    // Set the ContentAdmin navigation property
+                    movie.ContentAdmin = selectedContentAdmin;
+
+                    // Add to context and save changes
+                    _context.Add(movie);
+                    await _context.SaveChangesAsync();
+
+                    // Redirect to the Index action
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    // Handle the case where a valid ContentAdmin object is not found
+                    ModelState.AddModelError("ContentAdmin", "Selected ContentAdminId is not valid.");
+                }
             }
+            else
+            {
+                // Handle the case where the model state is invalid
+                ModelState.AddModelError("", "Model state is invalid.");
+            }
+
+            // Populate the dropdown with correct data
             ViewData["ContentAdminId"] = new SelectList(_context.ContentAdmins, "Id", "Id", movie.ContentAdminId);
+
+            // Return to the view with the invalid model
             return View(movie);
         }
+
 
         // GET: Movies/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
+                Debug.WriteLine("Id is null");
                 return NotFound();
             }
 
-            var movie = await _context.Movies.FindAsync(id);
+            var movie = await _context.Movies.SingleOrDefaultAsync(m => m.Id == id);
             if (movie == null)
             {
+                Debug.WriteLine("Movie is null");
                 return NotFound();
             }
+
+            Debug.WriteLine("ContentAdminId: " + movie.ContentAdminId);
             ViewData["ContentAdminId"] = new SelectList(_context.ContentAdmins, "Id", "Id", movie.ContentAdminId);
             return View(movie);
         }
+
 
         // POST: Movies/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -161,3 +195,8 @@ namespace MyCinemaApp.Controllers
         }
     }
 }
+
+
+
+
+

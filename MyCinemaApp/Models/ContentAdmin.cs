@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using MyCinemaApp.Models;
 
 namespace MyCinemaApp.Models;
 
 [Table("CONTENT_ADMINS")]
-[Index("UserUsername", Name = "IX_CONTENT_ADMINS_user_username")]
 public partial class ContentAdmin
 {
     [Key]
@@ -22,7 +22,7 @@ public partial class ContentAdmin
     [Column("user_username")]
     [StringLength(32)]
     [Unicode(false)]
-    public string UserUsername { get; set; } = null!;
+    public string Username { get; set; } = null!;
 
     [InverseProperty("ContentAdmin")]
     public virtual ICollection<Movie> Movies { get; set; } = new List<Movie>();
@@ -30,7 +30,8 @@ public partial class ContentAdmin
     [InverseProperty("ContentAdmin")]
     public virtual ICollection<Provole> Provoles { get; set; } = new List<Provole>();
 
-    [ForeignKey("UserUsername")]
+    [ForeignKey("Username")]
     [InverseProperty("ContentAdmins")]
-    public virtual User UserUsernameNavigation { get; set; } = null!;
+    [Display(Name = "Username")]
+    public virtual User? UsernameNavigation { get; set; }
 }
