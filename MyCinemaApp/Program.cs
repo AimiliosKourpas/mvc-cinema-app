@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyCinemaApp.Data;
+using MyCinemaApp.Models;
+using System.Configuration;
 
 
 public class Program
@@ -19,7 +21,14 @@ public class Program
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
         builder.Services.AddControllersWithViews();
+        var connectionString1 = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+        builder.Services.AddDbContext<ApplicationDBContext>(options =>
+            options.UseSqlServer(connectionString1));
 
+        // Other service registrations...
+
+        // Add controllers and views
+        builder.Services.AddControllersWithViews();
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -73,7 +82,10 @@ public class Program
                 await userManager.AddToRoleAsync(user, "Admin");
             }
         }
+
         app.Run();
+
+
 
     }
 }

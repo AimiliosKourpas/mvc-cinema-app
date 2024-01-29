@@ -1,0 +1,49 @@
+﻿@model MyCinemaApp.Models.Reservation
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Reservation</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProvolesMoviesId" class="control-label"></label>
+                <select asp-for="ProvolesMoviesId" class ="form-control" asp-items="ViewBag.ProvolesMoviesId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProvolesMoviesName" class="control-label"></label>
+                <select asp-for="ProvolesMoviesName" class ="form-control" asp-items="ViewBag.ProvolesMoviesName"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProvolesCinemasId" class="control-label"></label>
+                <select asp-for="ProvolesCinemasId" class ="form-control" asp-items="ViewBag.ProvolesCinemasId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomersId" class="control-label"></label>
+                <select asp-for="CustomersId" class ="form-control" asp-items="ViewBag.CustomersId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfSeats" class="control-label"></label>
+                <input asp-for="NumberOfSeats" class="form-control" />
+                <span asp-validation-for="NumberOfSeats" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
