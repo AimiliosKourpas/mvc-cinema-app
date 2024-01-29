@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Reservations</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -25,23 +25,24 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberOfSeats)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Customers.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Provole.MoviesName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfSeats)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customers.UserUsername)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Provole.MovieDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { moviesId = item.MoviesId, cinemasId = item.CinemasId, customersId = item.CustomersId }) |
+                    @Html.ActionLink("Details", "Details", new { moviesId = item.MoviesId, cinemasId = item.CinemasId, customersId = item.CustomersId }) |
+                    @Html.ActionLink("Delete", "Delete", new { moviesId = item.MoviesId, cinemasId = item.CinemasId, customersId = item.CustomersId }) |
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

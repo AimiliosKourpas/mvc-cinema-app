@@ -145,17 +145,17 @@ public partial class ApplicationDBContext : DbContext
         });
 
         modelBuilder.Entity<Reservation>(entity =>
-        {
-            entity.HasKey(e => new { e.ProvolesMoviesId, e.ProvolesCinemasId, e.CustomersId }).HasName("PK__RESERVAT__9EC6595B3AC41345");
+{
+	entity.HasKey(e => new { e.MoviesId, e.CinemasId, e.CustomersId }).HasName("PK__RESERVAT__5A1B2468E38688FA");
 
-            entity.HasOne(d => d.Customers).WithMany(p => p.Reservations)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__RESERVATI__custo__278EDA44");
+	entity.HasOne(d => d.Customers).WithMany(p => p.Reservations)
+    	.OnDelete(DeleteBehavior.ClientSetNull)
+    	.HasConstraintName("FK__RESERVATI__custo__65570293");
 
-            entity.HasOne(d => d.Provole).WithMany(p => p.Reservations)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__RESERVATIONS__269AB60B");
-        });
+	entity.HasOne(d => d.Provole).WithMany(p => p.Reservations)
+    	.OnDelete(DeleteBehavior.ClientSetNull)
+    	.HasConstraintName("FK__RESERVATIONS__6462DE5A");
+});
 
         modelBuilder.Entity<User>(entity =>
         {

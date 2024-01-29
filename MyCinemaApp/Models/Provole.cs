@@ -35,17 +35,22 @@ public partial class Provole
     [Unicode(false)]
     public string? Id { get; set; }
 
+    [Column("movie_date")]
+    [Display(Name = "Date and time")]
+    public DateTime? MovieDate { get; set; }
+
+
     [ForeignKey("CinemasId")]
     [InverseProperty("Provoles")]
-    public virtual Cinema Cinemas { get; set; } = null!;
+    public virtual Cinema? Cinemas { get; set; } 
 
     [ForeignKey("ContentAdminId")]
     [InverseProperty("Provoles")]
-    public virtual ContentAdmin ContentAdmin { get; set; } = null!;
+    public virtual ContentAdmin? ContentAdmin { get; set; } 
 
     [ForeignKey("MoviesId, MoviesName")]
     [InverseProperty("Provoles")]
-    public virtual Movie Movie { get; set; } = null!;
+    public virtual Movie? Movie { get; set; } 
 
     [InverseProperty("Provole")]
     public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();

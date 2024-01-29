@@ -3,40 +3,41 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using MyCinemaApp.Models;
 
 namespace MyCinemaApp.Models;
 
-[PrimaryKey("ProvolesMoviesId", "ProvolesCinemasId", "CustomersId")]
+[PrimaryKey("MoviesId", "CinemasId", "CustomersId")]
 [Table("RESERVATIONS")]
-[Index("CustomersId", Name = "IX_RESERVATIONS_customers_id")]
-[Index("ProvolesMoviesId", "ProvolesCinemasId", "ProvolesMoviesName", Name = "IX_RESERVATIONS_provoles_movies_id_provoles_cinemas_id_provoles_movies_name")]
 public partial class Reservation
 {
     [Key]
-    [Column("provoles_movies_id")]
-    public int ProvolesMoviesId { get; set; }
+    [Column("movies_id")]
+    public int MoviesId { get; set; }
 
-    [Column("provoles_movies_name")]
+    [Column("movies_name")]
     [StringLength(45)]
     [Unicode(false)]
-    public string ProvolesMoviesName { get; set; } = null!;
+    public string MoviesName { get; set; } = null!;
 
     [Key]
-    [Column("provoles_cinemas_id")]
-    public int ProvolesCinemasId { get; set; }
+    [Column("cinemas_id")]
+    public int CinemasId { get; set; }
 
     [Key]
     [Column("customers_id")]
     public int CustomersId { get; set; }
 
     [Column("number_of_seats")]
+    [Display(Name = "Number of seats")]
     public int NumberOfSeats { get; set; }
 
     [ForeignKey("CustomersId")]
     [InverseProperty("Reservations")]
-    public virtual Customer Customers { get; set; } = null!;
+    public virtual Customer? Customers { get; set; }
 
-    [ForeignKey("ProvolesMoviesId, ProvolesCinemasId, ProvolesMoviesName")]
+    [ForeignKey("MoviesId, CinemasId, MoviesName")]
     [InverseProperty("Reservations")]
-    public virtual Provole Provole { get; set; } = null!;
+    public virtual Provole? Provole { get; set; }
+
 }

@@ -11,29 +11,29 @@
     <h4>Reservation</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.NumberOfSeats)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NumberOfSeats)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Customers)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Customers.Id)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customers.UserUsername)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Provole)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Provole.MoviesName)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Provole.MovieDate)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
-        <input type="hidden" asp-for="ProvolesMoviesId" />
-        <input type="hidden" asp-for="ProvolesCinemasId" />
+        <input type="hidden" asp-for="MoviesId" />
+        <input type="hidden" asp-for="CinemasId" />
         <input type="hidden" asp-for="CustomersId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +22,8 @@ namespace MyCinemaApp.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            var applicationDBContext = _context.Customers.Include(c => c.UserUsernameNavigation);
-            return View(await applicationDBContext.ToListAsync());
+            var myFirstMVCDBContext = _context.Customers.Include(c => c.UserUsernameNavigation);
+            return View(await myFirstMVCDBContext.ToListAsync());
         }
 
         // GET: Customers/Details/5
@@ -63,6 +64,17 @@ namespace MyCinemaApp.Controllers
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                foreach (var modelStateKey in ModelState.Keys)
+                {
+                    var modelStateVal = ModelState[modelStateKey];
+                    foreach (var error in modelStateVal.Errors)
+                    {
+                        Debug.WriteLine(error.ErrorMessage);
+                    }
+                }
             }
             ViewData["UserUsername"] = new SelectList(_context.Users, "Username", "Username", customer.UserUsername);
             return View(customer);

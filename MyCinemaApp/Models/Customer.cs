@@ -29,5 +29,6 @@ public partial class Customer
 
     [ForeignKey("UserUsername")]
     [InverseProperty("Customers")]
-    public virtual User UserUsernameNavigation { get; set; } = null!;
+    [Display(Name = "Username")]
+    public virtual User? UserUsernameNavigation { get; set; } = null!;
 }

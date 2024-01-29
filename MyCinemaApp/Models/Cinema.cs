@@ -26,6 +26,7 @@ public partial class Cinema
     [Column("three_d")]
     [StringLength(45)]
     [Unicode(false)]
+    [Display(Name = "3D")]
     public string ThreeD { get; set; } = null!;
 
     [InverseProperty("Cinemas")]

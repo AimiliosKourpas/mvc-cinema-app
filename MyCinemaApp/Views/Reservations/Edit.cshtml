@@ -12,14 +12,29 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ProvolesMoviesId" />
+            <!--MoviesId-->
             <div class="form-group">
-                <label asp-for="ProvolesMoviesName" class="control-label"></label>
-                <select asp-for="ProvolesMoviesName" class="form-control" asp-items="ViewBag.ProvolesMoviesName"></select>
-                <span asp-validation-for="ProvolesMoviesName" class="text-danger"></span>
+                <label asp-for="MoviesId" class="control-label"></label>
+                <select asp-for="MoviesId" class="form-control" asp-items="ViewBag.MoviesId"></select>
+                <span asp-validation-for="MoviesId" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for="ProvolesCinemasId" />
-            <input type="hidden" asp-for="CustomersId" />
+            <div class="form-group">
+                <label asp-for="MoviesName" class="control-label"></label>
+                <select asp-for="MoviesName" class="form-control" asp-items="ViewBag.MoviesName"></select>
+                <span asp-validation-for="MoviesName" class="text-danger"></span>
+            </div>
+            <!--CinemasId-->
+            <div class="form-group">
+                <label asp-for="CinemasId" class="control-label"></label>
+                <select asp-for="CinemasId" class="form-control" asp-items="ViewBag.CinemasId"></select>
+                <span asp-validation-for="CinemasId" class="text-danger"></span>
+            </div>
+            <!--CustomersId-->
+            <div class="form-group">
+                <label asp-for="CustomersId" class="control-label"></label>
+                <select asp-for="CustomersId" class="form-control" asp-items="ViewBag.CustomersId"></select>
+                <span asp-validation-for="CustomersId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="NumberOfSeats" class="control-label"></label>
                 <input asp-for="NumberOfSeats" class="form-control" />
@@ -37,5 +52,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
