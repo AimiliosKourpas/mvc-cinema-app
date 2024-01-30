@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,7 @@ namespace MyCinemaApp.Controllers
             var myFirstMVCDBContext = _context.Provoles.Include(p => p.Cinemas).Include(p => p.ContentAdmin).Include(p => p.Movie);
             return View(await myFirstMVCDBContext.ToListAsync());
         }
-
+         
         // GET: Provoles/Details/5
         public async Task<IActionResult> Details(int? moviesId, int? cinemasId, string moviesName)
         {
@@ -48,6 +49,7 @@ namespace MyCinemaApp.Controllers
             return View(provole);
         }
 
+        [Authorize(Roles = "Content-Admin")]
 
         // GET: Provoles/Create
         public IActionResult Create()
@@ -64,6 +66,8 @@ namespace MyCinemaApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Content-Admin")]
+
         public async Task<IActionResult> Create([Bind("MoviesId,MoviesName,CinemasId,MovieDate,ContentAdminId,Id")] Provole provole)
         {
             if (ModelState.IsValid)
@@ -96,6 +100,8 @@ namespace MyCinemaApp.Controllers
         }
 
         // GET: Provoles/Edit/5
+        [Authorize(Roles = "Content-Admin")]
+
         public async Task<IActionResult> Edit(int moviesId, int cinemasId, string moviesName)
         {
             var provole = await _context.Provoles.FindAsync(moviesId, cinemasId, moviesName);
@@ -151,6 +157,8 @@ namespace MyCinemaApp.Controllers
 
 
         // GET: Provoles/Delete/5
+        [Authorize(Roles = "Content-Admin")]
+
         public async Task<IActionResult> Delete(int? moviesId, int? cinemasId, string moviesName)
         {
             if (moviesId == null || cinemasId == null || moviesName == null)
